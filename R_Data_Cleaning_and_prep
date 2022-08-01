@@ -1,0 +1,96 @@
+## Total Number of Columns and Width
+
+dim(Bike_Share_202004)
+dim(Bike_Share_202005)
+dim(Bike_Share_202006)
+dim(Bike_Share_202007)
+dim(Bike_Share_202008)
+dim(Bike_Share_202009)
+dim(Bike_Share_202010)
+dim(Bike_Share_202011)
+dim(Bike_Share_202012)
+
+
+## Check Column name of each dataset for consistency
+
+colnames(Bike_Share_202004)
+colnames(Bike_Share_202005)
+colnames(Bike_Share_202006)
+colnames(Bike_Share_202007)
+colnames(Bike_Share_202008)
+colnames(Bike_Share_202009)
+colnames(Bike_Share_202010)
+colnames(Bike_Share_202011)
+colnames(Bike_Share_202012)
+```
+## What kinds of Data we have in the dataset
+
+str(Bike_Share_202004)
+str(Bike_Share_202005)
+str(Bike_Share_202006)
+str(Bike_Share_202007)
+str(Bike_Share_202008)
+str(Bike_Share_202009)
+str(Bike_Share_202010)
+str(Bike_Share_202011)
+str(Bike_Share_202012)
+
+## Convert numeric ID into Categorical ID
+
+Bike_Share_202004$start_station_id=as.character(Bike_Share_202004$start_station_id)
+Bike_Share_202004$end_station_id=as.character(Bike_Share_202004$end_station_id)
+
+Bike_Share_202005$start_station_id=as.character(Bike_Share_202005$start_station_id)
+Bike_Share_202005$end_station_id=as.character(Bike_Share_202005$end_station_id)
+
+Bike_Share_202006$start_station_id=as.character(Bike_Share_202006$start_station_id)
+Bike_Share_202006$end_station_id=as.character(Bike_Share_202006$end_station_id)
+
+
+Bike_Share_202007$start_station_id=as.character(Bike_Share_202007$start_station_id)
+Bike_Share_202007$end_station_id=as.character(Bike_Share_202007$end_station_id)
+
+Bike_Share_202008$start_station_id=as.character(Bike_Share_202008$start_station_id)
+Bike_Share_202008$end_station_id=as.character(Bike_Share_202008$end_station_id)
+
+Bike_Share_202009$start_station_id=as.character(Bike_Share_202009$start_station_id)
+Bike_Share_202009$end_station_id=as.character(Bike_Share_202009$end_station_id)
+
+Bike_Share_202010$start_station_id=as.character(Bike_Share_202010$start_station_id)
+Bike_Share_202010$end_station_id=as.character(Bike_Share_202010$end_station_id)
+
+Bike_Share_202011$start_station_id=as.character(Bike_Share_202011$start_station_id)
+Bike_Share_202011$end_station_id=as.character(Bike_Share_202011$end_station_id)
+
+Bike_Share_202012$start_station_id=as.character(Bike_Share_202012$start_station_id)
+Bike_Share_202012$end_station_id=as.character(Bike_Share_202012$end_station_id)
+
+##Combine all data and make it all trips
+Trips=rbind(Bike_Share_202004,Bike_Share_202005,Bike_Share_202006,Bike_Share_202007,Bike_Share_202008,Bike_Share_202009,Bike_Share_202010,Bike_Share_202011,Bike_Share_202012)
+
+##Check Missing Values
+apply(X=is.na(Trips),MARGIN=2,FUN=sum)
+
+##rename variable label
+Trips=Trips%>%
+  rename(member_type=member_casual)
+ 
+##Check duplicate data
+count(distinct(Trips))
+
+##Right now started_at column and ended_at column are in character format. It should be in datetime format. Convert those columns into datetime format.
+Trips$started_at=strptime(Trips$started_at,format="%Y-%m-%d %H: %M: %S")
+Trips$ended_at=strptime(Trips$ended_at,format="%Y-%m-%d %H: %M: %S")
+
+##Create the new column called ride_length in minutes
+Trips$ride_length=difftime(Trips$ended_at,Trips$started_at,units="mins")
+
+##calculate the day of the week that each ride started
+Trips$day_of_week=wday(Trips$started_at,label=TRUE)
+
+##calculate the month that each ride started
+Trips$month=month(Trips$started_at,label=TRUE)
+
+##Checking for negative values in ride_length column. I Will remove those negative values since they don't make sense to have a negative length of the ride
+Trips%>%count(ride_length<0)
+Trips=Trips%>%filter(ride_length>0)
