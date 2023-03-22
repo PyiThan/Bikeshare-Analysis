@@ -2,13 +2,9 @@
 ## Google Data Analytics Professional Certificate Case Study
 
 
-## [Link to see my Tableau visualization](https://public.tableau.com/app/profile/pyi.than8003/viz/BikeShareDataAnalysis_16637180032020/BikeShareDataAnalysis?publish=yes)
-
-## [Link to Data](https://divvy-tripdata.s3.amazonaws.com/index.html)
-
 ### Project Overview
 
-In this data analyst project, I was asked to analyze the Cyclistic historical bike trip data to identify trends. Then, I need to give a recommendation to Cyclistic executive team to increase membership.
+In this data analyst project, I was asked to analyze the Cyclistic three years of bike trip data to identify trends. Then, I need to give a recommendation to Cyclistic executive team to increase membership.
 
 Tools used: R for data cleaning and Tableau for data visualization
 
