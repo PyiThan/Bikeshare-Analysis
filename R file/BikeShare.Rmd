@@ -222,5 +222,6 @@ Trips%>%
   geom_col(width=0.5, position=position_dodge(width=0.5))+
   scale_y_continuous(labels=function(x) format(x,scientific=FALSE))
 ```
+Based on the data provided, it can be concluded that members took more rides than casual riders across all types of bikes. The average ride time for casual riders was longer than that of members for docked and classic bikes, but the opposite was observed for electric bikes. Additionally, the shortest average ride time was observed for electric bikes, regardless of rider type.
 
 Docked Bikes are the most popular type of bike for both casual and paid member. Both customers don't usually use classic bike. 
