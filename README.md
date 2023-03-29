@@ -1,5 +1,4 @@
 # Bikeshare-Analysis
-## Google Data Analytics Professional Certificate Case Study
 
 
 ### Project Overview
